@@ -1,0 +1,55 @@
+/** editor **/
+.ql-editor.ql-blank,
+.ql-editor {
+  height: 350px;
+}
+
+/** editor **/
+.cred {
+  color: red
+}
+
+.cfff {
+  color: #ffffff
+}
+
+#listBar {
+  padding: 0 20px;
+  background: #ffffff;
+}
+
+#listBar .bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#listBar .bar .name {
+  border-bottom: 2px solid #1abc9c;
+  padding: 10px 0;
+}
+
+#listBar .bar .addBtn {
+  padding: 10px 0;
+}
+
+.mainBox {
+  margin: 20px;
+  text-align: left;
+  background: #ffffff;
+  border-radius: 5px;
+  margin-bottom: 80px
+}
+
+.mainBox .mainTitle {
+  padding: 10px 15px;
+}
+
+.mainBox .mainTitle .titleName {
+  margin: 10px 0;
+  border-left: #1abc9c solid 3px;
+  text-indent: 15px;
+}
+
+.mainBox .form {
+  padding: 10px 50px
+}

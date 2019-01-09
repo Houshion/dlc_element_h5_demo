@@ -1,0 +1,107 @@
+<template>
+  <div id="uploadImg">
+    <el-upload
+      v-if="type=='single'"
+      class="avatar-uploader"
+      action="customize"
+      :show-file-list="false"
+      :before-upload="beforeuploadImg"
+    >
+      <img v-if="logoImg" :src="logoImg" class="avatar">
+      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    </el-upload>
+    <el-upload
+      ref="uploadImg"
+      action="http://wmwl.app.xiaozhuschool.com/dlc/public/upload"
+      list-type="picture-card"
+      :on-preview="handlePictureCardPreview"
+      :before-upload="beforeuploadImg"
+      :before-remove="beforeRemove"
+      :on-remove="removePicture"
+    >
+      <i class="el-icon-plus"></i>
+    </el-upload>
+    <el-dialog :visible.sync="dialogVisible">
+      <img width="100%" :src="dialogImageUrl" alt>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "uploadImg",
+  props: ["type"],
+  data() {
+    return {
+      dialogImageUrl: "",
+      dialogVisible: false
+      // types: type
+    };
+  },
+
+  created() {
+    const _this = this;
+    _this.types = _this.type;
+  },
+
+  mounted() {
+    const _this = this;
+  },
+  methods: {
+    // 图片放大功能
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    // 重写图片上传事件
+    beforeuploadImg(file) {
+      const _this = this;
+      console.log(111);
+      _this.$emit("goUpload", file);
+      //创建临时的路径来展示图片
+      var windowURL = window.URL || window.webkitURL;
+    },
+    beforeRemove() {
+      return this.$confirm(`确定移除该图片？`);
+    },
+    removePicture() {
+      const _this = this;
+      _this.$message({
+        message: "删除成功",
+        type: "success"
+      });
+    },
+    cleanUpImg() {
+      this.$refs.uploadImg.clearFiles();
+    }
+  }
+};
+</script>
+<style lang='less' scoped>
+.avatar-uploader {
+  border: 1px dashed #d9d9d9;
+  background-color: #fbfdff;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  width: 178px;
+  height: 178px;
+}
+.avatar-uploader:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+</style>
