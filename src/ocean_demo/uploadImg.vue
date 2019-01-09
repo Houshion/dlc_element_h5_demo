@@ -1,6 +1,6 @@
 <template>
-  <div id="uploadImg">
-    <div class="pd-30">
+  <div id="uploadImg" class="pd-10">
+    <div class="pd-10">
       <p>使用说明：</p>
       <el-collapse accordion>
         <el-collapse-item

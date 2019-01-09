@@ -11,6 +11,7 @@
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
     <el-upload
+      v-else
       ref="uploadImg"
       action="http://wmwl.app.xiaozhuschool.com/dlc/public/upload"
       list-type="picture-card"
@@ -34,7 +35,8 @@ export default {
   data() {
     return {
       dialogImageUrl: "",
-      dialogVisible: false
+      dialogVisible: false,
+      logoImg: ""
       // types: type
     };
   },
