@@ -1,6 +1,11 @@
 <template>
   <div id="table">
     <div class="pd-10">
+      <div class="toolBar mg-b-5 tal">
+        <el-button size="small">
+          <router-link :to="{name:'addList'}">添加</router-link>
+        </el-button>
+      </div>
       <otable
         :tableData="tableData"
         :tableTitle="tableTitle"
@@ -9,7 +14,8 @@
         @btnFunc="btnFunc"
         @selecChange="selecChange"
         @switchChange="switchChange"
-        class="border wd-100"
+        @inputChange="inputChange"
+        class="wd-100"
       ></otable>
     </div>
   </div>
@@ -21,30 +27,32 @@ export default {
   name: "table",
   data() {
     return {
+      search: "", // 模糊搜索当前页面数据
       loading: true, // 是否加载表格
       tableTitle: [
         { prop: "date", label: "日期", width: "100" },
         { prop: "name", label: "姓名", width: "70" },
         { prop: "province", label: "省份", width: "60" },
         { prop: "city", label: "市区", width: "70" },
-        { prop: "address", label: "地址", width: "300" },
-        { prop: "zip", label: "邮编", width: "auto" }
+        { prop: "address", label: "地址", width: "auto" }
       ], // 表头信息，prop对应
       tableSlot: [
         {
           title: "上下架",
           slotType: "switch",
-          slot: [{ label: "上架", type: "updown" }]
+          width: 80
+        },
+        {
+          title: "数量",
+          slotType: "inputNum",
+          width: 200
         },
         {
           title: "操作",
           slotType: "btn",
-          // buttontype: "text", // text为文字按钮，默认不传为正常按钮
+          buttontype: "text", // text为文字按钮，默认不传为正常按钮
           slot: [
-            {
-              label: "编辑",
-              type: "edit"
-            },
+            { label: "编辑", type: "edit" },
             { label: "删除", type: "dele" }
           ]
         }
@@ -57,7 +65,7 @@ export default {
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
           switch: 0,
-          zip: 200333
+          zip: 7
         },
         {
           date: "2016-05-02",
@@ -66,7 +74,7 @@ export default {
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
           switch: 1,
-          zip: 200333
+          zip: 6
         },
         {
           date: "2016-05-04",
@@ -75,7 +83,7 @@ export default {
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
           switch: 0,
-          zip: 200333
+          zip: 5
         },
         {
           date: "2016-05-01",
@@ -84,7 +92,7 @@ export default {
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
           switch: 0,
-          zip: 200333
+          zip: 4
         },
         {
           date: "2016-06-01",
@@ -93,7 +101,7 @@ export default {
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
           switch: 1,
-          zip: 200333
+          zip: 3
         },
         {
           date: "2016-07-01",
@@ -102,7 +110,7 @@ export default {
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
           switch: 0,
-          zip: 200333
+          zip: 2
         },
         {
           date: "2016-05-21",
@@ -111,7 +119,7 @@ export default {
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
           switch: 0,
-          zip: 200333
+          zip: 1
         },
         {
           date: "2016-05-31",
@@ -120,7 +128,7 @@ export default {
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
           switch: 0,
-          zip: 200333
+          zip: 0
         }
       ]
     };
@@ -144,7 +152,7 @@ export default {
     const _this = this;
     setTimeout(() => {
       _this.loading = false;
-    }, 2500);
+    }, 500);
   },
   methods: {
     btnFunc(index, type) {
@@ -161,9 +169,15 @@ export default {
     },
     switchChange(row, index) {
       console.log("switchChange", row, index);
+    },
+    inputChange(val) {
+      console.log(val);
     }
   }
 };
 </script>
 <style lang='less' scoped>
+ul.el-pager {
+  width: auto;
+}
 </style>

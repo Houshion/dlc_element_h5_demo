@@ -1,6 +1,10 @@
 <template>
   <div id="otable">
+    <el-input placeholder="请输入内容" v-model="search">
+      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+    </el-input>
     <el-table
+      class="border mg-t-5"
       ref="otable"
       :data="tables"
       style="width: 100%;overflow:scroll"
@@ -24,7 +28,7 @@
         :key="indexSlot"
         :label="itemSlot.title"
         show-overflow-tooltip
-        width="auto"
+        :width="itemSlot.width?itemSlot.width:'auto'"
       >
         <template slot-scope="scope">
           <div class="typeButton" v-if="itemSlot.slotType=='btn'">
@@ -44,9 +48,29 @@
               @change="switchChange(scope.row,scope.$index)"
             ></el-switch>
           </div>
+          <div class="typeSwitch" v-else-if="itemSlot.slotType=='inputNum'">
+            <el-input-number
+              v-model="scope.row.zip"
+              @change="inputChange"
+              size="mini"
+              :min="0"
+              :max="9999999"
+              label="描述文字"
+            ></el-input-number>
+          </div>
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="page"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="10"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="400"
+      style="width:auto"
+    ></el-pagination>
   </div>
 </template>
 
@@ -61,7 +85,6 @@ export default {
       type: Boolean,
       default: true
     },
-    search: "",
     loading: {
       type: Boolean,
       default: false
@@ -69,6 +92,8 @@ export default {
   },
   data() {
     return {
+      search: "",
+      page: 1,
       dataLen: this.tableData.length,
       multipleSelection: []
     };
@@ -115,9 +140,21 @@ export default {
     },
     switchChange(row, index) {
       this.$emit("switchChange", row, index);
+    },
+    inputChange(value) {
+      this.$emit("inputChange", value);
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
     }
   }
 };
 </script>
 <style lang='less' scoped>
+ul.el-pager {
+  width: auto;
+}
 </style>

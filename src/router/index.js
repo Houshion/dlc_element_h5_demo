@@ -5,6 +5,7 @@ import login from '@/pages/login'
 import table from '@/ocean_demo/table'
 import charts from '@/ocean_demo/charts'
 import loginBox from '@/ocean_demo/login'
+import addList from '@/ocean_demo/addList'
 import oeditor from '@/ocean_demo/oeditor'
 import uploadImg from '@/ocean_demo/uploadImg'
 
@@ -46,6 +47,11 @@ export default new Router({
           path: 'charts',
           name: 'charts',
           component: charts
+        },
+        {
+          path: 'addList',
+          name: 'addList',
+          component: addList
         },
       ]
     }
