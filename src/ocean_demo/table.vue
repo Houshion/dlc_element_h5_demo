@@ -1,0 +1,169 @@
+<template>
+  <div id="table">
+    <div class="pd-10">
+      <otable
+        :tableData="tableData"
+        :tableTitle="tableTitle"
+        :tableSlot="tableSlot"
+        :loading="loading"
+        @btnFunc="btnFunc"
+        @selecChange="selecChange"
+        @switchChange="switchChange"
+        class="border wd-100"
+      ></otable>
+    </div>
+  </div>
+</template>
+
+<script>
+import otable from "@/components/table";
+export default {
+  name: "table",
+  data() {
+    return {
+      loading: true, // 是否加载表格
+      tableTitle: [
+        { prop: "date", label: "日期", width: "100" },
+        { prop: "name", label: "姓名", width: "70" },
+        { prop: "province", label: "省份", width: "60" },
+        { prop: "city", label: "市区", width: "70" },
+        { prop: "address", label: "地址", width: "300" },
+        { prop: "zip", label: "邮编", width: "auto" }
+      ], // 表头信息，prop对应
+      tableSlot: [
+        {
+          title: "上下架",
+          slotType: "switch",
+          slot: [{ label: "上架", type: "updown" }]
+        },
+        {
+          title: "操作",
+          slotType: "btn",
+          // buttontype: "text", // text为文字按钮，默认不传为正常按钮
+          slot: [
+            {
+              label: "编辑",
+              type: "edit"
+            },
+            { label: "删除", type: "dele" }
+          ]
+        }
+      ],
+      tableData: [
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          switch: 0,
+          zip: 200333
+        },
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          switch: 1,
+          zip: 200333
+        },
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          switch: 0,
+          zip: 200333
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          switch: 0,
+          zip: 200333
+        },
+        {
+          date: "2016-06-01",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          switch: 1,
+          zip: 200333
+        },
+        {
+          date: "2016-07-01",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          switch: 0,
+          zip: 200333
+        },
+        {
+          date: "2016-05-21",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          switch: 0,
+          zip: 200333
+        },
+        {
+          date: "2016-05-31",
+          name: "王小虎",
+          province: "上海",
+          city: "普陀区",
+          address: "上海市普陀区金沙江路 1518 弄",
+          switch: 0,
+          zip: 200333
+        }
+      ]
+    };
+  },
+
+  components: {
+    otable
+  },
+
+  created() {
+    const _this = this;
+    _this.tableData.forEach((item, index) => {
+      let switchParam = Object.assign({}, item, {
+        switch: item.switch == 1 ? true : false
+      });
+      _this.$set(_this.tableData, index, switchParam);
+    });
+  },
+
+  mounted() {
+    const _this = this;
+    setTimeout(() => {
+      _this.loading = false;
+    }, 2500);
+  },
+  methods: {
+    btnFunc(index, type) {
+      const _this = this;
+      console.log(index, type);
+    },
+    selecChange(val) {
+      const _this = this;
+      let data = [];
+      val.forEach(item => {
+        data.push(item.date);
+      });
+      console.log(data);
+    },
+    switchChange(row, index) {
+      console.log("switchChange", row, index);
+    }
+  }
+};
+</script>
+<style lang='less' scoped>
+</style>

@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="centerBox flex-center" v-if="isRegiste">
-      <div class="pd-10 bg-ff flex-dcc">
+      <div class="pd-10 bg-ff flex-dcc border">
         <div class="flex-csb bg-diy pd-lr-10 w100" style="height:40px;">
           <span class="cf">注册</span>
           <img src="../assets/img/close.png" style="width:20px;height:20px;">

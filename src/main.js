@@ -18,9 +18,9 @@ import '../static/ueditor/ueditor.parse.min.js'
 import VueUeditorWrap from "vue-ueditor-wrap";
 Vue.component('vue-ueditor-wrap', VueUeditorWrap)
 
-// 使用element封装低于选择
-// import VueAreaLinkage from 'vue-area-linkage';
-// Vue.use(VueAreaLinkage)
+// 全局引入echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 
 // 全局引入axios请求
 import axios from "../static/js/axios";

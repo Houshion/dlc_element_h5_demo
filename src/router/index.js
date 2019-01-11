@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/pages/index'
 import login from '@/pages/login'
+import table from '@/ocean_demo/table'
+import charts from '@/ocean_demo/charts'
 import loginBox from '@/ocean_demo/login'
 import oeditor from '@/ocean_demo/oeditor'
 import uploadImg from '@/ocean_demo/uploadImg'
@@ -31,9 +33,19 @@ export default new Router({
           component: oeditor
         },
         {
+          path: 'table',
+          name: 'table',
+          component: table
+        },
+        {
           path: 'uploadImg',
           name: 'uploadImg',
           component: uploadImg
+        },
+        {
+          path: 'charts',
+          name: 'charts',
+          component: charts
         },
       ]
     }

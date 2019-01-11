@@ -1,17 +1,16 @@
 <template>
   <div id="index">
     <topBar></topBar>
-    <el-container class="navBar tal" style="min-height:100%;height:100%">
-      <nav-tab
-        :navList="navBar"
-        :tabList="navTab"
-        :navActive="navActive"
-        @removeTab="removeTab"
-        @selectNav="select"
-        @selectTab="selectTab"
-        tabNone="这是没有选项的时候的展示页"
-      ></nav-tab>
-    </el-container>
+    <!-- Breadcrumb属性为面包屑，不传为卡片tabs -->
+    <nav-tab
+      :navList="navBar"
+      :tabList="navTab"
+      :navActive="navActive"
+      @removeTab="removeTab"
+      @selectNav="select"
+      @selectTab="selectTab"
+      Breadcrumb
+    ></nav-tab>
   </div>
 </template>
 
@@ -30,7 +29,10 @@ export default {
       navBar: [
         //多级菜单
         {
-          parent: { title: "demo", router: "index" },
+          parent: { title: "首页", router: "charts" }
+        },
+        {
+          parent: { title: "demo", router: "demo1" },
           children: [
             {
               title: "UEditor编辑器",
@@ -43,6 +45,16 @@ export default {
               icon: "el-icon-setting"
             },
             {
+              title: "表格示例",
+              router: "table",
+              icon: "el-icon-setting"
+            }
+          ]
+        },
+        {
+          parent: { title: "demo2", router: "demo2" },
+          children: [
+            {
               title: "登录",
               router: "loginBox",
               icon: "el-icon-setting"
@@ -50,28 +62,38 @@ export default {
           ]
         }
       ],
-      navActive: "",
-      navTab: [],
-      a: 123
+      navActive: "charts",
+      navTab: []
     };
   },
   created() {
     const _this = this;
+    _this.$router.push({ name: "charts" });
   },
   methods: {
     // 选择nav菜单
     select(index) {
       const _this = this;
       let has = false;
+      let title;
       _this.navActive = index;
       _this.navTab.forEach(item => {
         if (item.name == index) {
           has = true;
         }
       });
-      if (!has) {
-        _this.navTab.push({ title: index, name: index });
-      }
+      _this.navBar.forEach(item => {
+        if (item.children) {
+          item.children.forEach(i => {
+            if (i.router == index) {
+              title = i.title;
+              if (!has) {
+                _this.navTab.push({ title: title, name: index });
+              }
+            }
+          });
+        }
+      });
     },
     // 关闭当前tab
     removeTab(targetName) {
@@ -126,8 +148,8 @@ body,
   color: #333;
 }
 
-.main {
-  width: calc(~"100% - 200px");
-  overflow: scroll;
-}
+// .main {
+//   width: calc(~"100% - 200px");
+//   overflow: scroll;
+// }
 </style>
