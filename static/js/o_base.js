@@ -208,5 +208,22 @@ export default {
       spinner: 'el-icon-loading',
       background: 'rgba(0, 0, 0, 0.7)'
     });
+  },
+  addRoute(name, url) {
+    const _this = this;
+    let newRoutes = constantRouterMap.concat([{
+      path: "/" + name,
+      name: name,
+      component: resolve => require([url], resolve)
+    }]);
+    localStorage.setItem(
+      "new" + name,
+      JSON.stringify({
+        path: "/" + name,
+        name: name,
+        component: name
+      })
+    ); //保存路由
+    _this.$router.addRoutes(newRoutes);
   }
 }

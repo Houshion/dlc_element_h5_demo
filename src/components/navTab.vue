@@ -78,6 +78,10 @@ export default {
   // props: ["navList", "tabList", "tabNone", "navActive"],
   props: {
     navList: Array,
+    collapsed: {
+      type: Boolean,
+      default: false
+    },
     tabList: Array,
     tabNone: String, // 暂定
     navActive: {

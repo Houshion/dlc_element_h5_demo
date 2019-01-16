@@ -2,9 +2,10 @@
   <div id="table">
     <div class="pd-10">
       <div class="toolBar mg-b-5 tal">
-        <el-button size="small">
+        <!-- <el-button size="small">
           <router-link :to="{name:'addList'}">添加</router-link>
-        </el-button>
+        </el-button>-->
+        <el-button size="small" @click="addRouter">添加</el-button>
       </div>
       <otable
         :tableData="tableData"
@@ -23,6 +24,8 @@
 
 <script>
 import otable from "@/components/table";
+import router from "vue-router";
+import { constantRouterMap } from "@/router";
 export default {
   name: "table",
   data() {
@@ -146,6 +149,7 @@ export default {
       });
       _this.$set(_this.tableData, index, switchParam);
     });
+    _this.addRouter();
   },
 
   mounted() {
@@ -172,6 +176,26 @@ export default {
     },
     inputChange(val) {
       console.log(val);
+    },
+    // 动态添加路由操作测试
+    addRouter() {
+      console.log(1);
+      let newRoutes = constantRouterMap.concat([
+        {
+          path: "/addList",
+          name: "addList",
+          component: resolve => require(["@/ocean_demo/addList"], resolve)
+        }
+      ]);
+      localStorage.setItem(
+        "new",
+        JSON.stringify({
+          path: "/addList",
+          name: "addList",
+          component: "addList"
+        })
+      ); //保存路由
+      this.$router.addRoutes(newRoutes);
     }
   }
 };

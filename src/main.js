@@ -37,6 +37,33 @@ Object.keys(filters).forEach(key => { //返回filters对象中属性名组成的
   Vue.filter(key, filters[key])
 })
 
+/**
+ * 动态配置路由操作
+ */
+import {
+  constantRouterMap
+} from '@/router'
+router.beforeEach((to, from, next) => {
+  if (localStorage.getItem('new')) {
+    var c = JSON.parse(localStorage.getItem('new')),
+      lastUrl = getLastUrl(window.location.href, '/');
+
+    if (c.path == lastUrl) { //动态路由页面的刷新事件
+      let newRoutes = constantRouterMap.concat([{
+        path: c.path,
+        component: resolve => require(["@/components/" + c.component + ""], resolve)
+      }])
+      localStorage.removeItem('new')
+      router.addRoutes(newRoutes)
+      router.replace(c.path) //replace,保证浏览器回退的时候能直接返回到上个页面，不会叠加
+    }
+  }
+  next()
+})
+var getLastUrl = (str, yourStr) => str.slice(str.lastIndexOf(yourStr)) //取到浏览器出现网址的最后"/"出现的后边的字符
+
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

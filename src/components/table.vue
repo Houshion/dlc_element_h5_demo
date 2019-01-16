@@ -69,7 +69,6 @@
       :page-size="10"
       layout="total, sizes, prev, pager, next, jumper"
       :total="400"
-      style="width:auto"
     ></el-pagination>
   </div>
 </template>

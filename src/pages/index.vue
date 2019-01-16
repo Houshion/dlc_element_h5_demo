@@ -1,6 +1,6 @@
 <template>
   <div id="index">
-    <topBar></topBar>
+    <topBar :userInfo="userInfo"></topBar>
     <!-- Breadcrumb属性为面包屑，不传为卡片tabs -->
     <nav-tab
       :navList="navBar"
@@ -26,6 +26,10 @@ export default {
   name: "App",
   data() {
     return {
+      userInfo: {
+        img: require("@/assets/logo.png"),
+        name: "Ocean"
+      },
       navBar: [
         //多级菜单
         {

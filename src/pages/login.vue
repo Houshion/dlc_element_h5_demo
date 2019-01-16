@@ -10,7 +10,7 @@
       <li class="f22 c-diy" style="font-size:60px;">为什么选我们？</li>
       <li class="f12 c9 mt10" style="font-size:32px;">APSPEED WHEELS</li>
     </div>
-    <!-- <login></login> -->
+    <login></login>
   </div>
 </template>
 
